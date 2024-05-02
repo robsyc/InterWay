@@ -1,0 +1,7 @@
+geopy
+networkx
+pandas
+matplotlib
+geopandas
+contextily
+ipykernel
