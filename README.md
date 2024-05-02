@@ -1,6 +1,6 @@
 # InterWay
 
-Course project for "Selected Topics in Mathematical Optimization" (STMO) from [Jovana]() and [Robbe](https://github.com/robsyc) <3
+Course project for "Selected Topics in Mathematical Optimization" (STMO) from [Jovana](https://github.com/jovanafilipovic1) and [Robbe](https://github.com/robsyc) <3
 
 We are planning an [Interrail](https://www.interrail.eu/en) vacation starting in Brussels and ending in ehm, ... we don't know yet. To plan our vacaction in the most mathimatically sound way, we've translated it into a graph problem...
 
