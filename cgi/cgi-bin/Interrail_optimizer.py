@@ -384,25 +384,15 @@ def get_first_n_simple_paths(G, source, target, travel_days=4, n_iter=100):
     return possible_paths
 
 
-possible_paths = get_first_n_simple_paths(G, start, end, travel_days=travel_days, n_iter=2000)
 
+def get_full_path(G, optimal_path):
+    full_path = []
+    for i, j in zip(optimal_path[:-1], optimal_path[1:]):
+        path, time = shortest_path(G, i, j)
+        full_path += path[:-1]
+    full_path.append('Belgrade')
+    return full_path
 
-# sort possible paths by score
-sorted_paths = sorted(possible_paths, key=lambda x: x[1], reverse=True)
-
-for i in range(5):
-    path, tot_score = sorted_paths[i]
-    score_list = [G.nodes[city]["score"] for city in path[1:-1]]
-    stop_days = [round((item / tot_score) * total_travel_days) for item in score_list]
-
-    if sum(stop_days) > total_travel_days:
-        stop_days[-1] -= 1
-    elif sum(stop_days) < total_travel_days:
-        stop_days[-1] += 1
-    
-    print(f"Path {i+1}: {path}")
-    print(f"Total score: {tot_score}")
-    print(f"Stop days: {stop_days}")
 
 
 
@@ -431,18 +421,15 @@ for city, data in G.nodes(data=True):
     for city in city_weights_user:
         G.nodes[city]["score"] = city_weights_user[city]
        
-# # add "score" feature to nodes
-# for city, data in G.nodes(data=True):
-#     if city in city_weights_user:
-#         G.nodes[city]["score"] = city_weights_user[city]
-#     elif city == start:
-#         G.nodes[city]["score"] = 0
-#     else:
-#         G.nodes[city]["score"] = city_weights_base
 
 
 
-possible_paths = get_first_n_simple_paths(G, start, end, travel_days=travel_days, n_iter=2000):
+
+
+possible_paths = get_first_n_simple_paths(G, start, end, travel_days=travel_days, n_iter=2000)
+
+
+# sort possible paths by score
 sorted_paths = sorted(possible_paths, key=lambda x: x[1], reverse=True)
 
 for i in range(5):
@@ -454,17 +441,13 @@ for i in range(5):
         stop_days[-1] -= 1
     elif sum(stop_days) < total_travel_days:
         stop_days[-1] += 1
+
+    full_path = get_full_path(G, path)    
     
     print(f"Path {i+1}: {path}")
     print(f"Total score: {tot_score}")
     print(f"Stop days: {stop_days}")
+    print(f"Full path: {full_path}")
+    print("============================================================================================================================")
 
-
-
-def get_full_path(G, path):
-    full_path = []
-    for i, j in zip(path[:-1], path[1:]):
-        path, time = shortest_path(G, i, j)
-        full_path += path
-    return full_path
 

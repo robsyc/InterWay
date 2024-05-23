@@ -319,7 +319,6 @@ def plot_graph_all_labels(G, paths=None, weight="time", figsize=(20, 16)):
 
     #save as jpg with very high resolution
     plt.savefig("./data/eu_map_path.svg", dpi=300)
-
     #plt.savefig("./data/eu_map_path1.jpeg")
 
 
@@ -348,32 +347,22 @@ def plot_graph(G, cities, full_path, weight="time", figsize=(20, 16)):
         else "red" if data["type"] == "reservation" 
         else "black" for u, v, data in G.edges(data=True)]
 
-    
     nx.draw(G, pos, node_size=40, font_size=9, node_color='red', edge_color=edge_colors, ax=ax)
-    #nx.draw_networkx_edge_labels(G, pos, font_size=7, ax=ax)
 
-
-    # add paths to the plot
+    # Highlight full_path in the plot and node labels for visited cities
     if full_path:
         for path in full_path:
             edges = list(zip(path, path[1:]))
             edge_labels = {(u, v): f"{data['time']//60}:{data['time']%60:02d}" for u, v, data in G.edges(data=True) if u in path and v in path}
             nx.draw_networkx_edges(G, pos, edgelist=edges, edge_color="pink", width=2, ax=ax)
             nx.draw_networkx_edge_labels(G, pos, font_size=7, ax=ax,edge_labels=edge_labels)
-            # add node labels only for nodes in the paths
 
-    
     node_labels = {node: node for node in cities}
     nx.draw_networkx_labels(G, pos, labels=node_labels, font_size=13, ax=ax,verticalalignment='top')
     nx.draw_networkx_nodes(G, pos, nodelist = cities,node_size=60, node_color='yellow', ax=ax)
 
-        #G, pos, with_labels=True, nodelist = paths,node_size=60, font_size=9, node_color='yellow', edge_color=edge_colors, ax=ax)
-
-
-    #save as jpg with very high resolution
     plt.savefig("./data/eu_map_path.svg", dpi=300)
 
-    #plt.savefig("./data/eu_map_path1.jpeg")
 
 
 
