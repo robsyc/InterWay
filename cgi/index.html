@@ -5,105 +5,13 @@
         <title>InterWay</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Bootstrap styling in css folder -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-        
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            * {
-              box-sizing: border-box;
-            }
-            
-            body {
-              font: 16px Arial;  
-            }
-            
-            /*the container must be positioned relative:*/
-            .autocomplete {
-              position: relative;
-              display: inline-block;
-              width: 44%;
-              margin-right: 5%;
-            }
-            
-            input {
-              border: 1px solid transparent;
-              padding: 10px;
-              font-size: 16px;
-            }
-            
-            input[type=text] {
-              width: 100%;
-            }
-            
-            input[type=submit] {
-              background-color: DodgerBlue;
-              cursor: pointer;
-            }
-            
-            .autocomplete-items {
-              position: absolute;
-              border: 1px solid #d4d4d4;
-              border-bottom: none;
-              border-top: none;
-              z-index: 99;
-              /*position the autocomplete items to be the same width as the container:*/
-              top: 100%;
-              left: 0;
-              right: 0;
-            }
-            
-            .autocomplete-items div {
-              padding: 10px;
-              cursor: pointer;
-              background-color: #fff; 
-              border-bottom: 1px solid #d4d4d4; 
-            }
-            
-            /*when hovering an item:*/
-            .autocomplete-items div:hover {
-              background-color: #e9e9e9; 
-            }
-            
-            /*when navigating through the items using the arrow keys:*/
-            .autocomplete-active {
-              background-color: DodgerBlue !important; 
-              color: #ffffff; 
-            }
-            .add{
-            cursor: pointer;
-            }
-        </style>
-        <!-- autocomplete for start and end location cities -->
-        <script>
-            $(document).ready(function() {
-                var i = 1;
-                $('.add').on('click', function() {
-                    // var field = '<br><div>Link URL '+i+': <input type="text" name="blog_linku_one[]"> &nbsp; Link Name '+i+':  <input type="text" name="blog_linkn_one[]"></div>';
-                    //                       Link URL      : <input type="text" name="blog_linku_one[]"> &nbsp; Link Name      :  <input type="text" name="blog_linkn_one[]">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="./web-page_extras/style.css">
 
-
-                    var field = `
-                    <div class="form-group">
-                        <div class="form-group autocomplete">
-                            <label for="city">City: </label>
-                            <input type="text" class="form-control" id="city_`+i+`" name="city_[]" value="Berlin">
-                        </div>
-                        <div class="form-group autocomplete">
-                            <label for="days">Preference: </label>
-                            <input type="number" class="form-control" id="days_`+i+`" name="days_[]" min="0" value="2">
-                        </div>
-                        <br><br>
-                    </div>`;
-                    $('.appending_div').append(field);
-                    i = i+1;
-                })
-            });
-        </script>
     </head>
 
-    <body style="background-color:#e5ffdb;">
+    <body>
         <div class="container">
             <h1>InterWay</h1>
             <p class="lead">Mathematically optimize your Interrail trip!</p>
@@ -111,195 +19,816 @@
             <p>Please fill out your travel preferences :)</p>
             <br>
 
-            <form action="cgi-bin/myPythonScript.py" method="post">
-                <!-- Hyperparameters required from user
-                - start location (select with autocomplete)
-                - end location (select with autocomplete)
-                - number of Interrail traveldays (radio buttons for options: 4, 5, 7, 10, or 15)
-                - number of days to reach city (integer input)
-                - city preferences (TODO)
-                -->
-                <div class="form-group autocomplete">
-                    <label class="fw-bold" for="start">Start location: </label><br><br>
-                    <input type="text" class="form-control" id="start" name="start" value="Brussels">
-                </div>
-                <div class="form-group autocomplete">
-                    <label class="fw-bold" for="start">End location: </label><br><br>
-                    <input type="text" class="form-control" id="end" name="end" value="Belgrade">
-                </div>
-                <br><br><br>
-                <div class="form-group">
-                    <label class="fw-bold" for="traveldays">Number of Interrail traveldays: </label>
-                    <br><br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="traveldays" id="inlineRadio_4" value="4">
-                        <label class="form-check-label" for="inlineRadio_4">4</label>
+            <div class="container">
+
+              <form action="cgi-bin/main.py" method="post">
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="autocomplete form-group">
+                        <label class="fw-bold" for="start">Start City:</label>
+                        <input type="text" class="form-control" id="start" name="start" value="Brussels">
+                      </div>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="traveldays" id="inlineRadio_5" value="5">
-                        <label class="form-check-label" for="inlineRadio_5">5</label>
+                    <div class="col-md-6">
+                      <div class="autocomplete form-group">
+                        <label class="fw-bold" for="end">Destination city:</label>
+                        <input type="text" class="form-control" id="end" name="end" value="Belgrade">
+                      </div>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="traveldays" id="inlineRadio_7" value="7">
-                        <label class="form-check-label" for="inlineRadio_7">7</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="traveldays" id="inlineRadio_10" value="10">
-                        <label class="form-check-label" for="inlineRadio_10">10</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="traveldays" id="inlineRadio_15" value="15">
-                        <label class="form-check-label" for="inlineRadio_15">15</label>
-                    </div>
-                </div>
-                <br><br>
-                <div class="form-group">
-                    <label class="fw-bold" for="days_to_reach">Number of days to reach destination city: </label>
-                    <br><br>
-                    <input type="number" class="form-control" id="days_to_reach" name="days_to_reach" min="0" value="2">
-                </div>
-                <br><br>
-                <label class="fw-bold" for="city_preferences">City preferences: </label>
-                <br><br>
-                <div class="appending_div">
-                    <div class="form-group">
-                        <div class="form-group autocomplete">
-                            <label for="city">City: </label>
-                            <input type="text" class="form-control" id="city_[]" name="city_[]" value="Berlin">
+                  </div>
+
+                  <br>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="fw-bold" for="traveldays">Number of Interrail traveldays:</label>
+                      <br>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="traveldays" id="inlineRadio_4" value="4">
+                          <label class="form-check-label" for="inlineRadio_4">4</label>
                         </div>
-                        <div class="form-group autocomplete">
-                            <label for="days">Preference: </label>
-                            <input type="number" class="form-control" id="days_[]" name="days_[]" min="0" value="2">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="traveldays" id="inlineRadio_5" value="5">
+                          <label class="form-check-label" for="inlineRadio_5">5</label>
                         </div>
-                        <br><br>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="traveldays" id="inlineRadio_7" value="7">
+                          <label class="form-check-label" for="inlineRadio_7">7</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="traveldays" id="inlineRadio_10" value="10">
+                          <label class="form-check-label" for="inlineRadio_10">10</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="traveldays" id="inlineRadio_15" value="15">
+                          <label class="form-check-label" for="inlineRadio_15">15 days</label>
+                        </div>
+                      </div>
                     </div>
-                </div>
-                Add preference: <span class="fa fa-plus add"></span>
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="fw-bold" for="days_to_reach">Number of days to reach destination city:</label>
+                        <input type="number" class="form-control" id="days_to_reach" name="days_to_reach" min="0" value="7">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                  <!-- <div class="form-group"> -->
+                    <label class="fw-bold" for="city_preferences">City preferences:</label>
+                    <!-- Add svg -->
+                    <div id="map-container">
+                      <img src="./web-page_extras/eu_map_path.svg" alt="Map of Europe">
+
+                      <div class="city-label London">
+                        London: <input type="number" id="London" name="London" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Glasgow">
+                        Glasgow: <input type="number" id="Glasgow" name="Glasgow" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Dublin">
+                        Dublin: <input type="number" id="Dublin" name="Dublin" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Amsterdam">
+                        Amsterdam: <input type="number" id="Amsterdam" name="Amsterdam" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Brussels">
+                        Brussels: <input type="number" id="Brussels" name="Brussels" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Paris">
+                          Paris: <input type="number" id="Paris" name="Paris" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Berlin">
+                          Berlin: <input type="number" id="Berlin" name="Berlin" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Bordeax">
+                        Bordeax: <input type="number" id="Bordeax" name="Bordeax" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Madrid">
+                        Madrid: <input type="number" id="Madrid" name="Madrid" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Lisbon">
+                        Lisbon: <input type="number" id="Lisbon" name="Lisbon" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Valencia">
+                        Valencia: <input type="number" id="Valencia" name="Valencia" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Barcelona">
+                        Barcelona: <input type="number" id="Barcelona" name="Barcelona" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Milan">
+                        Milan: <input type="number" id="Milan" name="Milan" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Zurich">
+                        Zurich: <input type="number" id="Zurich" name="Zurich" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Rome">
+                        Rome: <input type="number" id="Rome" name="Rome" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Αθήνα">
+                        Athens: <input type="number" id="Αθήνα" name="Αθήνα" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Istanbul">
+                        Istanbul: <input type="number" id="Istanbul" name="Istanbul" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Ankara">
+                        Ankara: <input type="number" id="Ankara" name="Ankara" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Praha">
+                        Prague: <input type="number" id="Praha" name="Praha" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Warsaw">
+                        Warsaw: <input type="number" id="Warsaw" name="Warsaw" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Krakow">
+                        Krakow: <input type="number" id="Krakow" name="Krakow" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Wien">
+                        Vienna: <input type="number" id="Wien" name="Wien" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Budapest">
+                        Budapest: <input type="number" id="Budapest" name="Budapest" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Zagreb">
+                        Zagreb: <input type="number" id="Zagreb" name="Zagreb" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Belgrade">
+                        Belgrade: <input type="number" id="Belgrade" name="Belgrade" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Bucharest">
+                        Bucharest: <input type="number" id="Bucharest" name="Bucharest" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Vilnius">
+                        Vilnius: <input type="number" id="Vilnius" name="Vilnius" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Riga">
+                        Riga: <input type="number" id="Riga" name="Riga" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Tallinn">
+                        Tallinn: <input type="number" id="Tallinn" name="Tallinn" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Helsinki">
+                        Helsinki: <input type="number" id="Helsinki" name="Helsinki" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Stockholm">
+                        Stockholm: <input type="number" id="Stockholm" name="Stockholm" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Copenhagen">
+                        Copenhagen: <input type="number" id="Copenhagen" name="Copenhagen" class="city-input" value="1" min="1">
+                      </div>
+                      <div class="city-label Oslo">
+                        Oslo: <input type="number" id="Oslo" name="Oslo" class="city-input" value="1" min="1">
+                      </div>
+                    </div>
+                  </div>
+
+                  <br>
+
+                  <p>
+                    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                      Show all cities
+                    </button>
+                  </p>
+
+                  <div class="collapse" id="collapseExample">
+
+                    <div class="row">
+                      <!-- Austria -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Austria</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Vienna: <input type="number" id="Wien_extra" name="Wien_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Belgium -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Belgium</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Brussels: <input type="number" id="Brussels_extra" name="Brussels_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Czech Republic -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Czech Republic</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Prague: <input type="number" id="Praha_extra" name="Praha_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  <div class="row">
+                    <!-- Austria -->
+                    <div class="col-md-4">
+                      <div class="card">
+                        <div class="card-header">Austria</div>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">
+                            Vienna: <input type="number" id="Vienna_extra" name="Vienna_extra" class="city-input" value="1" min="1">
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- Netherlands -->
+                    <div class="col-md-4">
+                      <div class="card">
+                        <div class="card-header">Netherlands</div>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">
+                            Amsterdam: <input type="number" id="Amsterdam_extra" name="Amsterdam_extra" class="city-input" value="1" min="1">
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- Hungary -->
+                    <div class="col-md-4">
+                      <div class="card">
+                        <div class="card-header">Hungary</div>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">
+                            Budapest: <input type="number" id="Budapest_extra" name="Budapest_extra" class="city-input" value="1" min="1">
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                    <div class="row">
+                      <!-- Bulgaria -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Bulgaria</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Sofia: <input type="number" id="София_extra" name="София_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Varna: <input type="number" id="Варна_extra" name="Варна_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Croatia -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Croatia</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Zagreb: <input type="number" id="Zagreb_extra" name="Zagreb_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Split: <input type="number" id="Split_extra" name="Split_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Denmark -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Denmark</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Copenhagen: <input type="number" id="Copenhagen_extra" name="Copenhagen_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Aarhus: <input type="number" id="Aarhus_extra" name="Aarhus_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <!-- Switzerland -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Switzerland</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Zurich: <input type="number" id="Zurich_extra" name="Zurich_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Basel: <input type="number" id="Basel_extra" name="Basel_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Bern: <input type="number" id="Bern_extra" name="Bern_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Sweden -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Sweden</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Stockholm: <input type="number" id="Stockholm_extra" name="Stockholm_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Kiruna: <input type="number" id="Kiruna_extra" name="Kiruna_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Östersund: <input type="number" id="Östersund_extra" name="Östersund_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Latvia -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Latvia</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Riga: <input type="number" id="Riga_extra" name="Riga_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Daugavpils: <input type="number" id="Daugavpils_extra" name="Daugavpils_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Liepaja: <input type="number" id="Liepaja_extra" name="Liepaja_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <div class="row">
+                      <!-- Finland -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Finland</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Helsinki: <input type="number" id="Helsinki_extra" name="Helsinki_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Turku: <input type="number" id="Turku_extra" name="Turku_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Rovaniemi: <input type="number" id="Rovaniemi_extra" name="Rovaniemi_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Greece -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Greece</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Athens: <input type="number" id="Αθήνα_extra" name="Αθήνα_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Thessaloniki: <input type="number" id="Θεσσαλονίκη_extra" name="Θεσσαλονίκη_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Patras: <input type="number" id="Πάτρα_extra" name="Πάτρα_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Portugal -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Portugal</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Lisbon: <input type="number" id="Lisbon_extra" name="Lisbon_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Porto: <input type="number" id="Porto_extra" name="Porto_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Faro: <input type="number" id="Faro_extra" name="Faro_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row">
+                      <!-- Lithuania -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Lithuania</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Vilnius: <input type="number" id="Vilnius_extra" name="Vilnius_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Kaunas: <input type="number" id="Kaunas_extra" name="Kaunas_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Klaipeda: <input type="number" id="Klaipeda_extra" name="Klaipeda_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Trakai: <input type="number" id="Trakai_extra" name="Trakai_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Ireland -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Ireland</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Dublin: <input type="number" id="Dublin_extra" name="Dublin_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Belfast: <input type="number" id="Belfast_extra" name="Belfast_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Westport: <input type="number" id="Westport_extra" name="Westport_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Cork: <input type="number" id="Cork_extra" name="Cork_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Norway -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Norway</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Oslo: <input type="number" id="Oslo_extra" name="Oslo_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Bergen: <input type="number" id="Bergen_extra" name="Bergen_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Trondheim: <input type="number" id="Trondheim_extra" name="Trondheim_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Bodø: <input type="number" id="Bodø_extra" name="Bodø_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
 
 
-                <br><br>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-            <script>
-                function autocomplete(inp, arr) {
-                  /*the autocomplete function takes two arguments,
-                  the text field element and an array of possible autocompleted values:*/
-                  var currentFocus;
-                  /*execute a function when someone writes in the text field:*/
-                  inp.addEventListener("input", function(e) {
-                      var a, b, i, val = this.value;
-                      /*close any already open lists of autocompleted values*/
-                      closeAllLists();
-                      if (!val) { return false;}
-                      currentFocus = -1;
-                      /*create a DIV element that will contain the items (values):*/
-                      a = document.createElement("DIV");
-                      a.setAttribute("id", this.id + "autocomplete-list");
-                      a.setAttribute("class", "autocomplete-items");
-                      /*append the DIV element as a child of the autocomplete container:*/
-                      this.parentNode.appendChild(a);
-                      /*for each item in the array...*/
-                      for (i = 0; i < arr.length; i++) {
-                        /*check if the item starts with the same letters as the text field value:*/
-                        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                          /*create a DIV element for each matching element:*/
-                          b = document.createElement("DIV");
-                          /*make the matching letters bold:*/
-                          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                          b.innerHTML += arr[i].substr(val.length);
-                          /*insert a input field that will hold the current array item's value:*/
-                          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                          /*execute a function when someone clicks on the item value (DIV element):*/
-                          b.addEventListener("click", function(e) {
-                              /*insert the value for the autocomplete text field:*/
-                              inp.value = this.getElementsByTagName("input")[0].value;
-                              /*close the list of autocompleted values,
-                              (or any other open lists of autocompleted values:*/
-                              closeAllLists();
-                          });
-                          a.appendChild(b);
-                        }
-                      }
-                  });
-                  /*execute a function presses a key on the keyboard:*/
-                  inp.addEventListener("keydown", function(e) {
-                      var x = document.getElementById(this.id + "autocomplete-list");
-                      if (x) x = x.getElementsByTagName("div");
-                      if (e.keyCode == 40) {
-                        /*If the arrow DOWN key is pressed,
-                        increase the currentFocus variable:*/
-                        currentFocus++;
-                        /*and and make the current item more visible:*/
-                        addActive(x);
-                      } else if (e.keyCode == 38) { //up
-                        /*If the arrow UP key is pressed,
-                        decrease the currentFocus variable:*/
-                        currentFocus--;
-                        /*and and make the current item more visible:*/
-                        addActive(x);
-                      } else if (e.keyCode == 13) {
-                        /*If the ENTER key is pressed, prevent the form from being submitted,*/
-                        e.preventDefault();
-                        if (currentFocus > -1) {
-                          /*and simulate a click on the "active" item:*/
-                          if (x) x[currentFocus].click();
-                        }
-                      }
-                  });
-                  function addActive(x) {
-                    /*a function to classify an item as "active":*/
-                    if (!x) return false;
-                    /*start by removing the "active" class on all items:*/
-                    removeActive(x);
-                    if (currentFocus >= x.length) currentFocus = 0;
-                    if (currentFocus < 0) currentFocus = (x.length - 1);
-                    /*add class "autocomplete-active":*/
-                    x[currentFocus].classList.add("autocomplete-active");
-                  }
-                  function removeActive(x) {
-                    /*a function to remove the "active" class from all autocomplete items:*/
-                    for (var i = 0; i < x.length; i++) {
-                      x[i].classList.remove("autocomplete-active");
-                    }
-                  }
-                  function closeAllLists(elmnt) {
-                    /*close all autocomplete lists in the document,
-                    except the one passed as an argument:*/
-                    var x = document.getElementsByClassName("autocomplete-items");
-                    for (var i = 0; i < x.length; i++) {
-                      if (elmnt != x[i] && elmnt != inp) {
-                        x[i].parentNode.removeChild(x[i]);
-                      }
-                    }
-                  }
-                  /*execute a function when someone clicks in the document:*/
-                  document.addEventListener("click", function (e) {
-                      closeAllLists(e.target);
-                  });
-                }
-                
-                /*An array containing all the country names in the world:*/
-                var cities = ["Westport","Belfast","Dublin","Cork","Aberdeen","Glasgow","Edinburgh","York","London","Holyhead","Birmingham","Bristol","Penzance","Brussels","Amsterdam","Paris","Rennes","Lyon","Bordeaux","Montpellier","Hendaye","Marseille","Nice","Madrid","Barcelona","Valencia","Pamplona","Santander","Santiago","Sevilla","Vigo", "Granada", "Malaga","Lisbon","Porto","Faro","Rome", "Milan", "Genova", "Bologna", "Firenze", "Napoli","Bari", "Catania", "Venezia","Zurich","Basel","Bern","Köln","Hamburg", "Berlin", "München", "Frankfurt", "Praha","Copenhagen","Aarhus","Stockholm","Kiruna","Östersund","Oslo","Bergen","Trondheim","Bodø","Helsinki","Turku","Rovaniemi","Tallinn","Narva", "Tartu", "Viljandi", "Valga","Riga","Daugavpils","Liepaja","Vilnius","Kaunas","Klaipeda","Trakai","Warsaw","Krakow","Gdansk","Katowice","Przemysl","Poznan","Wien","Ljubljana","Zagreb","Split","Budapest","Belgrade","Bar","Skopje","Bucharest", "Cluj-Napoca", "Craiova","София", "Варна","Αθήνα", "Θεσσαλονίκη", "Πάτρα","Istanbul", "Ankara", "Eskisehir", "Konya"];
-                
-                /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-                autocomplete(document.getElementById("start"), cities);
-                autocomplete(document.getElementById("end"), cities);
-                autocomplete(document.getElementById("city_[]"), cities);
-                // autocomplete(document.getElementById("city_1"), cities);
-                // autocomplete(document.getElementById("city_2"), cities);
-                // autocomplete(document.getElementById("city_3"), cities);
-                // autocomplete(document.getElementById("city_4"), cities);
-                // autocomplete(document.getElementById("city_5"), cities);
-            </script>
+                    <div class="row">
+                      <!-- Estonia -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Estonia</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Tallinn: <input type="number" id="Tallinn_extra" name="Tallinn_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Narva: <input type="number" id="Narva_extra" name="Narva_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Tartu: <input type="number" id="Tartu_extra" name="Tartu_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Viljandi: <input type="number" id="Viljandi_extra" name="Viljandi_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Valga: <input type="number" id="Valga_extra" name="Valga_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Germany -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Germany</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Cologne: <input type="number" id="Köln_extra" name="Köln_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Hamburg: <input type="number" id="Hamburg_extra" name="Hamburg_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Berlin: <input type="number" id="Berlin_extra" name="Berlin_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Munich: <input type="number" id="München_extra" name="München_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Frankfurt: <input type="number" id="Frankfurt_extra" name="Frankfurt_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Poland -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Poland</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Warsaw: <input type="number" id="Warsaw_extra" name="Warsaw_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Krakow: <input type="number" id="Krakow_extra" name="Krakow_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Gdansk: <input type="number" id="Gdansk_extra" name="Gdansk_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Katowice: <input type="number" id="Katowice_extra" name="Katowice_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Przemysl: <input type="number" id="Przemysl_extra" name="Przemysl_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Poznan: <input type="number" id="Poznan_extra" name="Poznan_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row">
+                      <!-- UK -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">UK</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              London: <input type="number" id="London_extra" name="London_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Glasgow: <input type="number" id="Glasgow_extra" name="Glasgow_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Aberdeen: <input type="number" id="Aberdeen_extra" name="Aberdeen_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Edinburgh: <input type="number" id="Edinburgh_extra" name="Edinburgh_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              York: <input type="number" id="York_extra" name="York_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Holyhead: <input type="number" id="Holyhead_extra" name="Holyhead_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Birmingham: <input type="number" id="Birmingham_extra" name="Birmingham_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Bristol: <input type="number" id="Bristol_extra" name="Bristol_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Penzance: <input type="number" id="Penzance_extra" name="Penzance_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Spain -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Spain</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Madrid: <input type="number" id="Madrid_extra" name="Madrid_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Barcelona: <input type="number" id="Barcelona_extra" name="Barcelona_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Valencia: <input type="number" id="Valencia_extra" name="Valencia_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Pamplona: <input type="number" id="Pamplona_extra" name="Pamplona_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Santander: <input type="number" id="Santander_extra" name="Santander_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Santiago: <input type="number" id="Santiago_extra" name="Santiago_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Sevilla: <input type="number" id="Sevilla_extra" name="Sevilla_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Vigo: <input type="number" id="Vigo_extra" name="Vigo_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Granada: <input type="number" id="Granada_extra" name="Granada_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Malaga: <input type="number" id="Malaga_extra" name="Malaga_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Italy -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Italy</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Rome: <input type="number" id="Rome_extra" name="Rome_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Milan: <input type="number" id="Milan_extra" name="Milan_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Genova: <input type="number" id="Genova_extra" name="Genova_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Bologna: <input type="number" id="Bologna_extra" name="Bologna_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Firenze: <input type="number" id="Firenze_extra" name="Firenze_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Napoli: <input type="number" id="Napoli_extra" name="Napoli_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Bari: <input type="number" id="Bari_extra" name="Bari_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Catania: <input type="number" id="Catania_extra" name="Catania_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Venezia: <input type="number" id="Venezia_extra" name="Venezia_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <div class="row">
+                      <!-- France -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">France</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Paris: <input type="number" id="Paris_extra" name="Paris_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Rennes: <input type="number" id="Rennes_extra" name="Rennes_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Lyon: <input type="number" id="Lyon_extra" name="Lyon_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Bordeaux: <input type="number" id="Bordeaux_extra" name="Bordeaux_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Montpellier: <input type="number" id="Montpellier_extra" name="Montpellier_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Hendaye: <input type="number" id="Hendaye_extra" name="Hendaye_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Marseille: <input type="number" id="Marseille_extra" name="Marseille_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Nice: <input type="number" id="Nice_extra" name="Nice_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
 
+                      <!-- Slovenia -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Slovenia</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Ljubljana: <input type="number" id="Ljubljana_extra" name="Ljubljana_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                        <!-- Serbia -->
+                        <div class="card">
+                          <div class="card-header">Serbia</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Belgrade: <input type="number" id="Belgrade_extra" name="Belgrade_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                        <!-- North Macedonia -->
+                        <div class="card">
+                          <div class="card-header">North Macedonia</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Skopje: <input type="number" id="Skopje_extra" name="Skopje_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <!-- Slovakia -->
+                        <div class="card">
+                          <div class="card-header">Slovakia</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Bratislava: <input type="number" id="Bratislava_extra" name="Bratislava_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                        <!-- Czech Republic -->
+                        <div class="card">
+                          <div class="card-header">Czech Republic</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Prague: <input type="number" id="Prague_extra" name="Prague_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                        <!-- Montenegro -->
+                        <div class="card">
+                          <div class="card-header">Montenegro</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Bar: <input type="number" id="Bar_extra" name="Bar_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+                      <!-- Romania -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Romania</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Bucharest: <input type="number" id="Bucharest_extra" name="Bucharest_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Cluj-Napoca: <input type="number" id="Cluj-Napoca_extra" name="Cluj-Napoca_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Craiova: <input type="number" id="Craiova_extra" name="Craiova_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Turkey -->
+                      <div class="col-md-4">
+                        <div class="card">
+                          <div class="card-header">Turkey</div>
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              Istanbul: <input type="number" id="Istanbul_extra" name="Istanbul_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Ankara: <input type="number" id="Ankara_extra" name="Ankara_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Eskisehir: <input type="number" id="Eskisehir_extra" name="Eskisehir_extra" class="city-input" value="1" min="1">
+                            </li>
+                            <li class="list-group-item">
+                              Konya: <input type="number" id="Konya_extra" name="Konya_extra" class="city-input" value="1" min="1">
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                  </div>
+
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">Submit</button>
+
+              </form>
+            
+            </div>
+            
         </div>
+
+        <script src="./web-page_extras/script.js"></script>
+
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+                <span class="text-muted">Selected Topics in Mathematical Optimization - 2024</span>
+                <span class="text-muted">Robbe Claeys & Jovana Filipovic</span>
+                <a class="text-muted" href="https://github.com/robsyc/InterWay/tree/main"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                </a>
+            </footer>
+        </div>
+
     </body>
-    <div class="container">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-            <span class="text-muted">Programming for Bioinformatics - 2022</span>
-            <span class="text-muted">Robbe Claeys</span>
-            <a class="text-muted" href="https://github.com/robsyc"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
-        </footer>
-    </div>
+
 </html>

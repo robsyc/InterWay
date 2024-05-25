@@ -1,0 +1,236 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: 16px Arial;  
+  background-color:#e5ffdb;
+  margin-top: 1rem;
+}
+
+label {
+  margin-bottom: 0.5rem;
+}
+
+/*the container must be positioned relative:*/
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+.form-group {
+  width: 90%;
+  margin-bottom: 0.8rem;
+}
+
+input {
+  border: 1px solid transparent;
+  padding: 10px;
+  font-size: 16px;
+}
+
+input[type=text] {
+  width: 100%;
+}
+
+input[type=submit] {
+  background-color: DodgerBlue;
+  cursor: pointer;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
+.add{
+cursor: pointer;
+}
+
+/* Map & city styling */
+
+#map-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+#map-container img {
+  width: 100%;
+  height: auto;
+}
+.city-label {
+  position: absolute;
+  background: rgba(230, 230, 230, 0.7);
+  padding: 5px;
+  border-radius: 5px;
+  font-size: small;
+}
+.city-label input {
+  width: 50px;
+  font-size: small;
+  background: rgba(255, 255, 255, 0.9);
+}
+.city-label.Glasgow {
+  top: 35%;
+  left: 9%;
+}
+.city-label.Dublin {
+  top: 42%;
+  left: 3%;
+}
+.city-label.London {
+  top: 49%;
+  left: 2%;
+}
+.city-label.Amsterdam {
+  top: 38%;
+  left: 33%;
+}
+.city-label.Brussels {
+  top: 45%;
+  left: 31%;
+}
+.city-label.Paris {
+  top: 57%;
+  left: 26%;
+}
+.city-label.Berlin {
+  top: 50%;
+  left: 47%;
+}
+.city-label.Bordeax {
+  top: 66%;
+  left: 19%;
+}
+.city-label.Madrid {
+  top: 70%;
+  left: 6%;
+}
+.city-label.Lisbon {
+  top: 79%;
+  left: 4%;
+}
+.city-label.Valencia {
+  top: 91%;
+  left: 29%;
+}
+.city-label.Barcelona {
+  top: 84%;
+  left: 34%;
+}
+.city-label.Milan {
+  top: 77%;
+  left: 42%;
+}
+.city-label.Rome {
+  top: 84%;
+  left: 48%;
+}
+.city-label.Αθήνα {
+  top: 93%;
+  left: 64%;
+}
+.city-label.Ankara {
+  top: 92%;
+  left: 82%;
+}
+.city-label.Istanbul {
+  top: 77%;
+  left: 89%;
+}
+.city-label.Zurich {
+  top: 62.5%;
+  left: 34.5%;
+}
+.city-label.Praha {
+  top: 56.5%;
+  left: 49%;
+}
+.city-label.Warsaw {
+  top: 49%;
+  left: 73%;
+}
+.city-label.Krakow {
+  top: 56%;
+  left: 71%;
+}
+.city-label.Wien {
+  top: 63%;
+  left: 52.5%;
+}
+.city-label.Zagreb {
+  top: 69.5%;
+  left: 59%;
+}
+.city-label.Budapest {
+  top: 63.5%;
+  left: 70%;
+}
+.city-label.Belgrade {
+  top: 76%;
+  left: 61%;
+}
+.city-label.Bucharest {
+  top: 69%;
+  left: 83%;
+}
+.city-label.Helsinki {
+  top: 23%;
+  left: 80%;
+}
+.city-label.Tallinn {
+  top: 31%;
+  left: 84%;
+}
+.city-label.Riga {
+  top: 37.5%;
+  left: 83%;
+}
+.city-label.Vilnius {
+  top: 45%;
+  left: 83.5%;
+}
+.city-label.Stockholm {
+  top: 35%;
+  left: 58%;
+}
+.city-label.Copenhagen {
+  top: 43.5%;
+  left: 56%;
+}
+.city-label.Oslo {
+  top: 23%;
+  left: 50%;
+}
+
+div.card {
+  margin-bottom: 1rem;
+}
+
+div.card-header {
+  background-color: #c0dfb4;
+}
