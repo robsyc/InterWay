@@ -21,6 +21,8 @@ def get_n_highest_scoring_cities(G, path, n):
 
 def check_proposed_path(G, proposed_path, travel_day_max_time, travel_days=4):
     path = proposed_path.copy()
+    if len(path) < travel_days+1:
+        return False
     max_scores = get_n_highest_scoring_cities(G, path, n=travel_days-1)
     # propsed path, only including the highest scoring cities
     for city in proposed_path[1:-1]:
@@ -71,9 +73,7 @@ def get_paths(G, start, end, total_travel_days, travel_days, travel_day_max_time
     possible_paths = get_first_n_simple_paths(G, start, end, travel_days=travel_days, n_iter=n_iter, travel_day_max_time=travel_day_max_time)
     sorted_paths = sorted(possible_paths, key=lambda x: x[1], reverse=True)
 
-    sorted_paths = [path for path in sorted_paths if len(path[0]) == travel_days+1]
-
-    for i in range(5):
+    for i in range(2):
         path, tot_score = sorted_paths[i]
         score_list = [G.nodes[city]["score"] for city in path[1:-1]]
         stop_days = [round((item / tot_score) * total_travel_days) for item in score_list]

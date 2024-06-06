@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import cgi, cgitb
 import pickle
 import networkx as nx
@@ -7,6 +8,9 @@ from optimizer import get_paths
 from plotter import plot_graph
 import os
 import sys
+
+# python -m http.server --cgi (Run in command line)
+# Open http://localhost:8000/ 
 
 os.environ['PYTHONIOENCODING'] = 'utf-8'
 sys.stdout.reconfigure(encoding='utf-8')
