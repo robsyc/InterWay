@@ -25,7 +25,6 @@ cities = ["Westport","Belfast","Dublin","Cork","Aberdeen","Glasgow","Edinburgh",
 def pickle_load(path):
     return pickle.load(path)
 
-
 G = pickle_load("./cgi-bin/static/graph.gpickle")
 
 ########################################################################################################
@@ -48,7 +47,7 @@ for city in cities:
     else:
         city_weights_user[city] = float(form.getvalue(city+"_extra"))
 
-# add "score" feature to nodes
+# Add "score" feature to nodes
 for city, data in G.nodes(data=True):
     if city in city_weights_user:
         G.nodes[city]["score"] = city_weights_user[city]
@@ -60,13 +59,21 @@ for city, data in G.nodes(data=True):
 ########################################################################################################
 
 # Generate results
-stop_cities, stop_days, full_paths = get_paths(G, start, end, total_travel_days=days, travel_days=traveldays, travel_day_max_time=travel_day_max_time)
+result = get_paths(G, start, end, total_travel_days=days, travel_days=traveldays, travel_day_max_time=travel_day_max_time)
+num_results = 3
 
-i = 0
-for cities, full_path in zip(stop_cities, full_paths):
-    img_path = f"./web-page_extras/plots/plot{i}.svg"
-    plot_graph(G, cities, full_path, img_path)
-    i += 1
+if result:
+    for i in range(3):
+        try:
+            stop_cities = result[i]["path"]
+            stop_days = result[i]["stop_days"]
+            full_paths = result[i]["full_path"]
+            score = result[i]["score"]
+            img_path = f"./web-page_extras/plots/plot{i}.png"
+            plot_graph(G, stop_cities, full_paths, img_path)
+        except:
+            num_results = i-1
+            break
 
 ########################################################################################################
 
@@ -91,43 +98,114 @@ print(f"""
             <h1>InterWay</h1>
             <p class="lead">Mathematically optimize your Interrail trip!</p>
             <hr>
+""")
+if result:
+    print(f"""
             <div class="container">
                 <h2>Parameters</h2>
-                <p>Start: {start}</p>
-                <p>End: {end}</p>
-                <p>Travel days: {traveldays}</p>
-                <p>Days to reach destination: {days}</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="autocomplete form-group">
+                            <label class="fw-bold" for="start">Start City:</label>
+                            <input type="text" class="form-control" id="start" name="start" value="{start}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="autocomplete form-group">
+                            <label class="fw-bold" for="end">Destination city:</label>
+                            <input type="text" class="form-control" id="end" name="end" value="{end}">
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="fw-bold" for="traveldays">Number of Interrail traveldays:</label>
+                            <br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="traveldays" id="inlineRadio_{traveldays}" value="{traveldays}">
+                                <label class="form-check-label" for="inlineRadio_{traveldays}">{traveldays}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="fw-bold" for="days_to_reach">Number of days to reach destination city:</label>
+                            <input type="number" class="form-control" id="days_to_reach" name="days_to_reach" min="0" value="{days}">
+                        </div>
+                    </div>
+                </div>
             </div>
             <hr>
             <div class="container">
                 <h2>Resulting paths</h2>
                 <div class="accordion" id="accordion">
-""")
+    """)
+    # bootstrap accordion
+    for i in range(num_results):
+        current_result = result[i]
+        cities = list(current_result["path"])
+        stops = current_result["stop_days"]
+        path = current_result["full_path"]
+        score = current_result["score"]
+        city_list = []
+        stop_list = []
+        for city in path[1:-1]:
+            if city in cities and city not in city_list:
+                stop_list.append(stops.pop(0))
+            else:
+                stop_list.append(0)
+            city_list.append(city)
 
-# bootstrap accordion
-for i, (cities, stops, paths) in enumerate(zip(stop_cities, stop_days, full_paths)):
-    print(f"""
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading{i}">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{i}" aria-expanded="true" aria-controls="collapse{i}">
-                                Path {i+1}
-                            </button>
-                        </h2>
-                        <div id="collapse{i}" class="accordion-collapse collapse" aria-labelledby="heading{i}" data-bs-parent="#accordion{i}">
-                            <div class="accordion-body">
-                                <p>Cities: {cities}</p>
-                                <p>City stops: {stops}</p>
-                                <p>Full path: {paths}</p>
-                                <img src="../web-page_extras/plots/plot{i}.svg" class="img-fluid" alt="plot{i}">
+        print(f"""
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{i}">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{i}" aria-expanded="true" aria-controls="collapse{i}">
+                                    <div>
+                                        <div>Score: {round(score)}</div>
+                                        <br>
+                                        <div style="font-weight:bold">{" → ".join(cities)}</div>
+                                    </div>
+                                </button>
+                            </h2>
+                            <div id="collapse{i}" class="accordion-collapse collapse" aria-labelledby="heading{i}" data-bs-parent="#accordion{i}">
+                                <div class="accordion-body">
+                                    <div class="table-responsive">
+                                    <table class="table">
+                                        <tr>
+                                            <th>City</th>
+                                            {"".join(f"<th><u>{city}</u></th>" if stop_list[j] != 0 else f"<th>{city}</th>" for j, city in enumerate(city_list))}
+                                        </tr>
+                                        <tr>
+                                            <th>Days spent</th>
+                                            {"".join(f"<td>{stop}</td>" if stop!=0 else "<td></td>" for stop in stop_list)}
+                                        </tr>
+                                    </table>
+                                    </div>
+                                    <img src="../web-page_extras/plots/plot{i}.png" class="img-fluid" alt="plot{i}">
+                                </div>
                             </div>
                         </div>
-                    </div>
-""".format(encoding="utf-8"))
-
-print(f"""
+    """.format(encoding="utf-8"))
+    print(f"""
                 </div>
+            </div>  
+        </div>
+    """)
+else:
+    print(f"""
+            <div class="container">
+                <h2>No results :(</h2>
+                <p>No valid paths found. Please try again with more Interrail traveldays.</p>
             </div>
         </div>
+    """)
+
+print(f"""
         <div class="container">
             <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
                 <span class="text-muted">Selected Topics in Mathematical Optimization - 2024</span>

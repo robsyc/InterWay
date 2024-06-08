@@ -33,4 +33,4 @@ def plot_graph(G, cities, full_path, filepath):
     nx.draw_networkx_labels(G, pos, labels=node_labels, font_size=13, ax=ax,verticalalignment='top')
     nx.draw_networkx_nodes(G, pos, nodelist = cities,node_size=60, node_color='yellow', ax=ax)
 
-    plt.savefig(filepath, dpi=300, format="svg", bbox_inches='tight')
+    plt.savefig(filepath, format="png", bbox_inches='tight')
