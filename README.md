@@ -28,7 +28,7 @@ Potential additional constrains:
 - `requirements.txt` contains all necessary packages
 - `./data` contains all resources and intermediary files (may need to be unzipped first)
 
-# How to get started `Python 3.11.5`
+## How to get started `Python 3.11.5`
 
 1. [Activate venv](https://docs.python.org/3/library/venv.html)
 - Windows: `.\env\Scripts\activate.bat`
@@ -36,7 +36,7 @@ Potential additional constrains:
 2. Install requirements: `pip install -r requirements.txt`
 3. Open folder in IDE: `code ./` and select `env` kernel
 
-# Running the CGI app
+## Running the CGI app
 
 Within `./cgi`
 
