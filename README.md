@@ -35,3 +35,11 @@ Potential additional constrains:
 - Mac/Linux: `source ./env/bin/activate`
 2. Install requirements: `pip install -r requirements.txt`
 3. Open folder in IDE: `code ./` and select `env` kernel
+
+# Running the CGI app
+
+Within `./cgi`
+
+`python -m http.server --cgi` (Run in command line)
+
+Open http://localhost:8000/ 
