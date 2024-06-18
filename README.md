@@ -20,8 +20,6 @@ The goal of this project is to find a path through a connected graph - with seve
 Potential additional constrains:
 - Aversion towards [reservation-required trips](https://www.interrail.eu/en/book-reservations/reservation-fees) (based on surcharge)
 
----
-
 # What's in the repo?
 
 - `notebook.ipynb` contains all our code we used during development and can be run from start to finish
