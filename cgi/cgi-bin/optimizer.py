@@ -160,7 +160,7 @@ def get_paths(G, start, end, total_travel_days, travel_days, travel_day_max_time
         # 'stop_days': []
     }
 
-    for i in range(25):
+    for i in range(30):
         path = find_single_path(G, start, end, travel_days, travel_day_max_time)
         if path:
             xstar, xpaths, fpaths, temperatures = simulated_annealing(G, get_path_score, path, hyperparameters, travel_day_max_time)
