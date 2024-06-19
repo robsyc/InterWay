@@ -149,16 +149,19 @@ if result:
         stops = item["stop_days"]
         path = item["full_path"]
         score = item["score"]
-
         cities_copy = cities[1:-1].copy()
         stops_copy = stops.copy()
         city_list = []
         stop_list = []
         for stop in path[1:-1]:
-            if stop == cities_copy[0]:
-                city_list.append(cities_copy.pop(0))
-                stop_list.append(stops.pop(0))
-            else:
+            try:
+                if stop == cities_copy[0]:
+                    city_list.append(cities_copy.pop(0))
+                    stop_list.append(stops.pop(0))
+                else:
+                    city_list.append(stop)
+                    stop_list.append(0)
+            except:
                 city_list.append(stop)
                 stop_list.append(0)
 
