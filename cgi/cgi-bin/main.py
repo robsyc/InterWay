@@ -60,20 +60,18 @@ for city, data in G.nodes(data=True):
 
 # Generate results
 result = get_paths(G, start, end, total_travel_days=days, travel_days=traveldays, travel_day_max_time=travel_day_max_time)
-num_results = 3
 
 if result:
-    for i in range(3):
-        try:
-            stop_cities = result[i]["path"]
-            stop_days = result[i]["stop_days"]
-            full_paths = result[i]["full_path"]
-            score = result[i]["score"]
-            img_path = f"./web-page_extras/plots/plot{i}.png"
-            plot_graph(G, stop_cities, full_paths, img_path)
-        except:
-            num_results = i-1
-            break
+    num_results = min(3, len(result))
+    result = sorted(result, key=lambda x: x["score"], reverse=True)
+
+    for i, item in enumerate(result[:num_results]):
+        stop_cities = item["path"]
+        stop_days = item["stop_days"]
+        full_paths = item["full_path"]
+        score = item["score"]
+        img_path = f"./web-page_extras/plots/plot{i}.png"
+        plot_graph(G, stop_cities, full_paths, img_path)
 
 ########################################################################################################
 
@@ -146,20 +144,23 @@ if result:
                 <div class="accordion" id="accordion">
     """)
     # bootstrap accordion
-    for i in range(num_results):
-        current_result = result[i]
-        cities = list(current_result["path"])
-        stops = current_result["stop_days"]
-        path = current_result["full_path"]
-        score = current_result["score"]
+    for i, item in enumerate(result[:num_results]):
+        cities = list(item["path"])
+        stops = item["stop_days"]
+        path = item["full_path"]
+        score = item["score"]
+
+        cities_copy = cities[1:-1].copy()
+        stops_copy = stops.copy()
         city_list = []
         stop_list = []
-        for city in path[1:-1]:
-            if city in cities and city not in city_list:
+        for stop in path[1:-1]:
+            if stop == cities_copy[0]:
+                city_list.append(cities_copy.pop(0))
                 stop_list.append(stops.pop(0))
             else:
+                city_list.append(stop)
                 stop_list.append(0)
-            city_list.append(city)
 
         print(f"""
                         <div class="accordion-item">

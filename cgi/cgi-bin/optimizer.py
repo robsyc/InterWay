@@ -126,7 +126,7 @@ def simulated_annealing(G, f, x0, hyperparameters, travel_day_max_time):
             neighbor_paths = get_neighbors_path(G, xstar)
             for neighbor in neighbor_paths:
                 fnew = f(G, neighbor, travel_day_max_time)
-                if fnew > fstar and fnew > 0:
+                if fnew >= fstar and fnew > 0:
                     xstar= neighbor.copy()
                     fstar = fnew
                 elif  np.exp((-fstar+fnew)/temp*5) > np.random.rand():
@@ -153,12 +153,7 @@ def get_paths(G, start, end, total_travel_days, travel_days, travel_day_max_time
         'NT': 20
     }
     path_set = set()
-    result = {
-        # 'path': [],
-        # 'full_path': [],
-        # 'score': 0,
-        # 'stop_days': []
-    }
+    result = []
 
     for i in range(30):
         path = find_single_path(G, start, end, travel_days, travel_day_max_time)
@@ -180,11 +175,10 @@ def get_paths(G, start, end, total_travel_days, travel_days, travel_day_max_time
             elif sum(stop_days) < total_travel_days:
                 stop_days[-1] += 1
 
-            result[i] = {
+            result.append({
                 'path': path,
                 'full_path': full_path,
                 'score': score,
                 'stop_days': stop_days
-            }
-    
+            })
     return result
